@@ -6,6 +6,7 @@ from app.api.errors import bad_request
 from app import db
 
 
+
 # API endpoint to get user with an id
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
@@ -13,6 +14,12 @@ def get_user(id):
 
 
 # API endpoint to create user
+
+@bp.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+    pass
+
+
 @bp.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json() or {}
@@ -52,3 +59,4 @@ def update_user(id):
     user.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(user.to_dict())
+
