@@ -2,6 +2,7 @@ from app import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from app import  login
+from flask import url_for
 
 
 @login.user_loader
@@ -23,3 +24,25 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+    # Describe the dictionary for API Endpoints
+
+    def to_dict(self, include_email=None):
+        data = {
+            "id": self.id,
+            "username": self.username,
+            "_link":{
+                "self": url_for('api.get_user', id=self.id)
+            }
+        }
+        if include_email:
+            data['email'] = self.email
+        return data
+
+    def from_dict(self, data, new_user=None):
+        for field in ['username', 'email']:
+            if field in data:
+                setattr(self, field, data[field])
+            if new_user or 'password' in data:
+                self.set_password(data['password'])
