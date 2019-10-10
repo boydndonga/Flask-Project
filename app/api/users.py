@@ -1,15 +1,9 @@
 from app.api import bp
 
-# Api endpoints to be created
-
+# Endpoint to get user
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     pass
-
-@bp.route('/users', methods=['GET'])
-def get_users():
-    pass
-
 
 @bp.route('/users', methods=['POST'])
 def create_user():
