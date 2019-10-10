@@ -13,7 +13,7 @@ def get_user(id):
     return jsonify(User.query.get_or_404(id).to_dict())
 
 
-
+# API endpoint to create user
 @bp.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json() or {}
